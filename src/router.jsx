@@ -9,6 +9,8 @@ import LayoutPage from "./LayoutPage/LayoutPage";
 import LoginPage from "./LoginPage/LoginPage";
 import BookDetailPage from "./BookDetailPage/BookDetailPage";
 import EditBookPage from "./EditBookPage/EditBookPage";
+import MyPage from "./MyPage/MyPage";
+import MyBookPage from "./MyBookPage/MyBookPage";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -20,11 +22,11 @@ const router = createBrowserRouter(
           path="/users/:userid/books/:bookid/edit"
           element={<EditBookPage />}
         />
+        <Route path="/users/:userid/books" element={<MyPage />} />
+        <Route path="/users/:userid/books/:bookid" element={<MyBookPage />} />
       </Route>
-      {/* <Route path="/users/:userid"/>
-      <Route path="/users/:userid/books" />
-      <Route path="/users/:userid/books/:bookid"/>
-      <Route path="/login" element={<LoginPage />} /> */}
+
+      <Route path="/login" element={<LoginPage />} />
     </>
   )
 );

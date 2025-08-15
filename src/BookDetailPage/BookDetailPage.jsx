@@ -18,7 +18,6 @@ import { useParams } from "react-router";
 
 const BookDetailPage = () => {
   const { bookid } = useParams();
-  console.log(bookid);
   const book = searchList[0];
   return (
     <Container maxWidth="sm">
