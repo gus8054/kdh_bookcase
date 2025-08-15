@@ -176,6 +176,7 @@ function PrimarySearchAppBar() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                sx={{ width: "100%" }}
               />
             </Search>
 
