@@ -5,18 +5,18 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { logout } from "../../auth/authService";
-import useAuth from "../../auth/useAuth";
+import { useNavigate } from "react-router";
 
 export default function LogoutDialog({
   openLogoutDialog,
   handleLogoutDialogClose,
 }) {
-  const { setUser } = useAuth();
+  const navigate = useNavigate();
   const handleLogout = async () => {
     handleLogoutDialogClose();
     try {
       await logout();
-      setUser(null);
+      navigate("/login");
     } catch (err) {
       alert(err.message);
     }

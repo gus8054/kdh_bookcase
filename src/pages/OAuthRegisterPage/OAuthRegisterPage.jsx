@@ -44,7 +44,7 @@ const OAuthRegisterPage = () => {
     const token = params.get("token");
     try {
       await signUpWithOAuth(token, nickname);
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       alert(err.serverMessage);
     }

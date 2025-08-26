@@ -1,62 +1,22 @@
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Button, Container, Menu, MenuItem } from "@mui/material";
 import Logo from "../Logo/Logo";
-import useAuth from "../../auth/useAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import LogoutDialog from "../LogoutDialog/LogoutDialog";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import SearchBar from "../SearchBar/SearchBar";
+import { useAuthStore } from "../../auth/authStore";
 
 function PrimarySearchAppBar({ user }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
+
   const navigate = useNavigate();
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -70,7 +30,7 @@ function PrimarySearchAppBar({ user }) {
   const handleMenuClose = (name) => () => {
     setAnchorEl(null);
     if (name === "myBookCase") {
-      navigate("/"); //TODO: url 수정
+      navigate(`/users/${user.id}/books`);
     } else if (name === "logout") {
       handleLogoutDialogOpen(true);
     }
@@ -82,17 +42,7 @@ function PrimarySearchAppBar({ user }) {
         <Container maxWidth="md">
           <Toolbar sx={{ height: { xs: "4rem", sm: "4rem" } }}>
             <Logo />
-            <Search sx={{ flex: 1 }}>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                sx={{ width: "100%" }}
-              />
-            </Search>
-
+            <SearchBar />
             <Box sx={{ display: { xs: "flex" } }}>
               {user ? (
                 <div>
@@ -149,6 +99,6 @@ function PrimarySearchAppBar({ user }) {
 }
 
 export default function Header() {
-  const { user } = useAuth();
+  const user = useAuthStore((state) => state.user);
   return <PrimarySearchAppBar user={user} />;
 }

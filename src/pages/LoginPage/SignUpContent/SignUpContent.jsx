@@ -13,7 +13,6 @@ import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Controller, useForm } from "react-hook-form";
 import { checkNickname, signUp } from "../../../auth/authService";
-import { useNavigate } from "react-router";
 
 export default function SignUpContent({ changeTab }) {
   const defaultValues = {
@@ -24,7 +23,6 @@ export default function SignUpContent({ changeTab }) {
   };
   const [showPassword, setShowPassword] = useState(false);
   const [nicknameChecked, setNicknameChecked] = useState(false);
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -54,7 +52,7 @@ export default function SignUpContent({ changeTab }) {
     }
     try {
       await signUp(nickname, email, password);
-      navigate("/");
+      changeTab();
     } catch (err) {
       alert(err.serverMessage);
     }

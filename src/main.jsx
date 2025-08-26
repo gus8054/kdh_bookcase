@@ -3,13 +3,13 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { lightTheme } from "./theme.js";
 import { RouterProvider } from "react-router";
 import router from "./router.jsx";
-import AuthProvider from "./auth/AuthProvider.jsx";
+import RestoreAuth from "./components/RestoreAuth/RestoreAuth.jsx";
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={lightTheme}>
-    <CssBaseline />
-    <AuthProvider>
+    <RestoreAuth>
+      <CssBaseline />
       <RouterProvider router={router} />
-    </AuthProvider>
+    </RestoreAuth>
   </ThemeProvider>
 );

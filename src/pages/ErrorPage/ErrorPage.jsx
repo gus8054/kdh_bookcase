@@ -1,6 +1,8 @@
 import { Alert, Box, Paper } from "@mui/material";
+import { useRouteError } from "react-router";
 
-export const NotFound = () => {
+export const ErrorPage = ({ content }) => {
+  const error = useRouteError();
   return (
     <Box
       sx={{
@@ -17,7 +19,7 @@ export const NotFound = () => {
           p: "1rem",
         }}>
         <Alert variant="outlined" severity="error">
-          404 Page Not Found
+          에러 : {content || error.message}
         </Alert>
       </Paper>
     </Box>

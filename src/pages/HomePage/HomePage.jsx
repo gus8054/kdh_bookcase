@@ -1,44 +1,67 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { lastReadBooks, sentenses } from "../../data";
-import LastReadBookCard from "./LastReadBookCard/LastReadBookCard";
-import useAuth from "../../auth/useAuth";
+import { sentenses } from "../../data";
+import { useAuthStore } from "../../auth/authStore";
+import { Link } from "react-router";
+import mainImage from "../../assets/main.png";
 
 const HomePage = () => {
-  const { user } = useAuth();
+  const user = useAuthStore.getState().user;
   return (
     <>
-      <Typography variant="h1" sx={{ textAlign: "center", my: "4rem" }}>
+      <Typography variant="h1" sx={{ textAlign: "center", mt: "4rem" }}>
         {user.nickname}님의 독서 일기
       </Typography>
       <Typography
-        variant="body2"
+        variant="h6"
         sx={{ textAlign: "center", my: "2rem", lineHeight: 2 }}>
-        책 관리, 리뷰 공유, 나의 독서 상태를 확인할 수 있어요.
+        책을 읽고 이곳에 요약하세요.
       </Typography>
-
-      <Typography
-        variant="body2"
-        sx={{ textAlign: "center", my: "2rem", lineHeight: 2 }}>
-        {`"${sentenses.at(-1)}"`}
-      </Typography>
+      <Box
+        sx={{
+          width: "100%",
+          aspectRatio: "1/1",
+          borderRadius: 2,
+          overflow: "hidden",
+          backgroundImage: `url(${mainImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        role="img"
+        aria-label="책상 위 풍경">
+        <Typography
+          variant="h1"
+          sx={{
+            textAlign: "center",
+            my: "2rem",
+            lineHeight: 2,
+            color: "white",
+            backdropFilter: "brightness(0.5)",
+          }}>
+          {`"${sentenses.at(-1)}"`}
+        </Typography>
+      </Box>
       <Button
+        component={Link}
+        to={`/search`}
         variant="contained"
         startIcon={<AddIcon />}
-        sx={{ mx: "auto", display: "flex", my: "2rem" }}>
+        sx={{
+          position: "fixed",
+          bottom: "2rem",
+          left: "50%",
+          transform: `translateX(-50%)`,
+          mx: "auto",
+          display: "flex",
+          width: "50%",
+          minWidth: "max-content",
+        }}>
         지금 시작하기
       </Button>
-      <Typography sx={{ fontSize: "1rem", fontWeight: "bold", mb: "1rem" }}>
-        최근에 읽은 책
-      </Typography>
-      <Grid container spacing={4}>
-        {lastReadBooks.map((lastReadBook) => (
-          <Grid size={{ xs: 12, sm: 6 }} key={lastReadBook.title}>
-            <LastReadBookCard lastReadBook={lastReadBook} />
-          </Grid>
-        ))}
-      </Grid>
     </>
   );
 };

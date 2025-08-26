@@ -1,8 +1,8 @@
 import { Navigate } from "react-router";
-import useAuth from "./useAuth";
+import { useAuthStore } from "./authStore";
 
 const RequireNotAuth = ({ children }) => {
-  const { user } = useAuth();
+  const user = useAuthStore((state) => state.user);
   if (!user) return <>{children}</>;
   else return <Navigate to="/" replace />;
 };

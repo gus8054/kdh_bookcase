@@ -7,8 +7,9 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import EditSquareIcon from "@mui/icons-material/EditSquare";
-
+import ImageFallback from "../../../components/ImageFallback/ImageFallback";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import { Link } from "react-router";
 const SearchBookCard = ({ book }) => {
   return (
     <Card
@@ -24,17 +25,21 @@ const SearchBookCard = ({ book }) => {
         },
       }}>
       <Box sx={{ flexBasis: "8rem", flexShrink: 0 }}>
-        <CardMedia
-          component="img"
-          alt="green iguana"
-          image={book.thumbnail}
-          sx={{
-            height: "100%",
-            width: "100%",
-            objectFit: "contain",
-            objectPosition: "center",
-          }}
-        />
+        {book.thumbnail ? (
+          <CardMedia
+            component="img"
+            alt="green iguana"
+            image={book.thumbnail}
+            sx={{
+              height: "100%",
+              width: "100%",
+              objectFit: "contain",
+              objectPosition: "center",
+            }}
+          />
+        ) : (
+          <ImageFallback />
+        )}
       </Box>
       <CardContent>
         <Typography gutterBottom variant="h6" sx={{ color: "text.primary" }}>
@@ -71,13 +76,14 @@ const SearchBookCard = ({ book }) => {
           position: "absolute",
           inset: 0,
           background: "rgba(0,0,0,0.5)",
-
           justifyContent: "center",
           alignItems: "center",
         }}>
-        <Button variant="contained" endIcon={<EditSquareIcon />}>
-          등록하러 가기
-        </Button>
+        <Link to={`/books/${book.id}`}>
+          <Button variant="contained" endIcon={<ImportContactsIcon />}>
+            자세히 보기
+          </Button>
+        </Link>
       </CardActions>
     </Card>
   );
