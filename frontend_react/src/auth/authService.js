@@ -3,7 +3,7 @@ import { useAuthStore } from "./authStore";
 import { jwtDecode } from "jwt-decode";
 
 const authAPI = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_BACK_END_URL,
   headers: {
     "Content-Type": "application/json",
   },

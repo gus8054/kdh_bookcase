@@ -148,7 +148,7 @@ export default function LoginContent({ changeTab }) {
         또는
       </Divider>
       <Link
-        to="http://localhost:3000/auth/github"
+        to={`${import.meta.env.VITE_BACK_END_URL}/auth/github`}
         reloadDocument
         style={{ display: "block" }}>
         <Button

@@ -8,7 +8,7 @@ export const getBookAPI = axios.create({
 });
 
 const serverAPI = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_BACK_END_URL,
   headers: {
     "Content-Type": "application/json",
   },
