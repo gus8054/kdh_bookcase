@@ -45,15 +45,16 @@ function PrimarySearchAppBar({ user }) {
             <SearchBar />
             <Box sx={{ display: { xs: "flex" } }}>
               {user ? (
-                <div>
+                <Box>
                   <IconButton
                     size="large"
                     aria-label="account of current user"
                     aria-controls="menu-appbar"
                     aria-haspopup="true"
                     onClick={handleMenu}
+                    sx={{ padding: "0.5rem" }}
                     color="inherit">
-                    <AccountCircle />
+                    <AccountCircle sx={{ width: "2rem", height: "2rem" }} />
                   </IconButton>
                   <Menu
                     id="menu-appbar"
@@ -80,7 +81,7 @@ function PrimarySearchAppBar({ user }) {
                       handleLogoutDialogClose={handleLogoutDialogClose}
                     />
                   </Menu>
-                </div>
+                </Box>
               ) : (
                 <Button
                   color="inherit"

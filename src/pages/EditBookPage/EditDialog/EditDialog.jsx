@@ -135,7 +135,59 @@ export default function EditDialog({
       }
     })();
   }, [open, userid, book, chapter, reset]);
+  const markdownUsage = `📌 텍스트 서식
+**굵게**
+*기울임*
+~~취소선~~ 
+\`인라인 코드\` 
 
+🏷️ 제목 (Heading)
+# 제목1
+## 제목2
+### 제목3
+#### 제목4
+##### 제목5
+###### 제목6
+
+📋 순서 없는 목록
+- 항목1
+- 항목2
+  - 하위 항목
+* 별표도 가능
+
+📋 순서 있는 목록
+1. 첫 번째
+2. 두 번째
+   1. 하위 항목
+
+🔗 링크 & 이미지
+[링크텍스트](https://example.com)  
+![이미지설명](https://example.com/image.jpg)
+
+💻 코드 블록
+\`\`\`js
+// JavaScript 예시
+function hello() {
+  console.log("Hello Markdown!");
+}
+\`\`\`
+
+📐 인용문
+> 이것은 인용문입니다.
+>> 중첩 인용도 가능해요.
+
+📊 표 만들기
+| 이름 | 나이 | 지역 |
+|------|------|------|
+| ab   | 28   | 부산 |
+| Jay  | 32   | 서울 |
+
+✅ 체크박스 (To-do List)
+- [x] 완료된 항목
+- [ ] 미완료 항목
+
+✂️ 수평선
+---`;
   return (
     <Dialog
       fullScreen
@@ -202,6 +254,7 @@ export default function EditDialog({
               <StyledTextArea
                 {...field}
                 autoFocus
+                placeholder={markdownUsage}
                 onChange={(e) => {
                   field.onChange(e);
                   if (isAutoScroll) moveScrollDown();

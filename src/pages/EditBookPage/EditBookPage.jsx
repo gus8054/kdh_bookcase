@@ -7,6 +7,7 @@ import {
   Paper,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
@@ -92,23 +93,13 @@ const EditBookPage = () => {
     setValue(`chapters.${index}.dialogOpen`, false);
   };
 
+  const matches = useMediaQuery("(min-width:320px)");
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onsubmit)}
-      noValidate
-      sx={{ my: "2rem" }}>
-      <Typography sx={{ fontSize: "1rem", fontWeight: "bold", mb: "2rem" }}>
-        도서 요약 정보
-      </Typography>
-      <Typography gutterBottom variant="h6" sx={{ color: "text.primary" }}>
-        {book.title}
-      </Typography>
-      <Paper sx={{ p: "1rem", my: "2rem" }}>
-        <Typography variant="h6" gutterBottom>
-          나의 리뷰
+    <Box component="form" onSubmit={handleSubmit(onsubmit)} noValidate>
+      <Paper sx={{ p: "1rem" }}>
+        <Typography gutterBottom variant="h6" sx={{ color: "text.primary" }}>
+          {book_title}
         </Typography>
-        {/* Rating */}
         <Box
           sx={{
             display: "flex",
@@ -139,15 +130,15 @@ const EditBookPage = () => {
               />
             )}
           />
-
           <Box
             sx={(theme) => ({
               ml: 2,
               color: errors.rating && theme.palette.error.main,
             })}>
-            {errors.rating
-              ? errors.rating.message
-              : labels[hover !== -1 ? hover : undefined]}
+            {matches &&
+              (errors.rating
+                ? errors.rating.message
+                : labels[hover !== -1 ? hover : undefined])}
           </Box>
         </Box>
         {/* Memo  */}
@@ -168,14 +159,14 @@ const EditBookPage = () => {
               multiline
               fullWidth
               rows={2}
-              sx={{ mb: "2rem" }}
+              sx={{ my: "1rem" }}
               error={!!errors.memo}
               helperText={errors.memo?.message}
             />
           )}
         />
 
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" sx={{ my: "1rem" }}>
           챕터별 요약
         </Typography>
         {fields.map((chapter, index) => (
@@ -186,7 +177,7 @@ const EditBookPage = () => {
               justifyContent: "flex-end",
               alignItems: "stretch",
               gap: "1rem",
-              my: "2rem",
+              my: "1rem",
               flexWrap: "wrap",
             }}>
             <Controller
@@ -298,7 +289,7 @@ const EditBookPage = () => {
           </Button>
         </Divider>
       </Paper>
-      <Box sx={{ textAlign: "right" }}>
+      <Box sx={{ textAlign: "right", my: "1rem" }}>
         <Button
           variant="contained"
           onClick={() => {

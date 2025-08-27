@@ -27,11 +27,11 @@ const MyPage = () => {
   const myBooks = useLoaderData();
 
   return (
-    <Box sx={{ position: "relative", display: "flow-root" }}>
+    <Box sx={{ position: "relative" }}>
       <Button
-        variant="text"
+        variant="contained"
         onClick={handleOpen}
-        sx={{ position: "absolute", top: "1rem", right: "1rem" }}>
+        sx={{ position: "absolute", right: 0, top: 0, zIndex: 9999 }}>
         회원 탈퇴
       </Button>
       <Dialog
@@ -56,12 +56,14 @@ const MyPage = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Typography variant="h1" sx={{ textAlign: "center", my: "4rem" }}>
+      <Typography variant="h1" sx={{ textAlign: "center", mb: "2rem" }}>
         내 책장
       </Typography>
       <Grid container spacing={4} sx={{ alignItems: "stretch" }}>
         {myBooks.length == 0 ? (
-          <Alert severity="info">아직 등록한 책이 없습니다.</Alert>
+          <Alert severity="info" sx={{ width: "100%" }}>
+            아직 등록한 책이 없습니다.
+          </Alert>
         ) : (
           myBooks.map((myBook) => (
             <Grid size={{ xs: 12, sm: 6 }} key={myBook.google_book_id}>

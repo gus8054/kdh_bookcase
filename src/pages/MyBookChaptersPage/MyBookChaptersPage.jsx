@@ -3,6 +3,7 @@ import {
   Button,
   Divider,
   Paper,
+  Stack,
   TextField,
   Tooltip,
   Typography,
@@ -20,9 +21,9 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import { Controller, useForm } from "react-hook-form";
 import { setReadCount } from "../../apis";
-import { Link, useLoaderData, useParams } from "react-router";
+import { Link, useLoaderData, useNavigate, useParams } from "react-router";
 import MarkdownDialog from "./MarkdownDialog/MarkdownDialog";
-
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const MyBookChaptersPage = () => {
   const { book_title, read_count, chapters } = useLoaderData();
   // 다이얼로그
@@ -76,9 +77,10 @@ const MyBookChaptersPage = () => {
       alert(err.message);
     }
   };
+  const navigate = useNavigate();
   return (
     <>
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -88,15 +90,22 @@ const MyBookChaptersPage = () => {
         <Typography sx={{ fontSize: "1rem", fontWeight: "bold" }}>
           챕터별 요약
         </Typography>
-        <Link to={`/users/${userid}/books/${bookid}/edit`}>
-          <Button>요약하러 GO </Button>
-        </Link>
-      </Box>
-      <Paper variant="outlined" sx={{ my: "2rem", p: "1rem" }}>
+      </Box> */}
+      <Paper variant="outlined" sx={{ p: "1rem" }}>
+        <Stack
+          sx={{ justifyContent: "space-between", alignItems: "center" }}
+          spacing={2}
+          direction="rwo">
+          <Button onClick={() => navigate(-1)} variant="outlined">
+            <ArrowBackIosNewIcon />
+          </Button>
+          <Box component={Link} to={`/users/${userid}/books/${bookid}/edit`}>
+            <Button variant="contained">필기하러 가기 </Button>
+          </Box>
+        </Stack>
         <Typography
-          gutterBottom
           variant="h6"
-          sx={{ color: "text.primary", textAlign: "center" }}>
+          sx={{ color: "text.primary", textAlign: "center", my: "1rem" }}>
           {book_title}
         </Typography>
         <Box
@@ -106,7 +115,7 @@ const MyBookChaptersPage = () => {
             justifyContent: "flex-end",
             flexWrap: "wrap",
             gap: "1rem",
-            my: "2rem",
+            my: "1rem",
           }}>
           <Controller
             name="read_count"
@@ -134,8 +143,13 @@ const MyBookChaptersPage = () => {
               </Tooltip>
             )}
           />
-          <Typography>번 회독 중입니다.</Typography>
-          <Button onClick={handleSubmit(onsubmit)}>회독 수 저장</Button>
+          <Typography variant="body1">번 회독 중입니다.</Typography>
+          <Button
+            onClick={handleSubmit(onsubmit)}
+            variant="text"
+            sx={{ padding: 0 }}>
+            회독 수 저장
+          </Button>
           <Snackbar
             open={snackBarOpen}
             autoHideDuration={3000}
@@ -145,8 +159,14 @@ const MyBookChaptersPage = () => {
           />
         </Box>
         <List
-          sx={{ width: "100%", bgcolor: "background.paper" }}
+          sx={{
+            width: "100%",
+            bgcolor: "background.paper",
+            my: "2rem",
+            padding: 0,
+          }}
           aria-label="contacts">
+          <Divider />
           {chapters
             .toSorted((a, b) => a.position - b.position)
             .map(({ uuid, chapter_title, position, last_opened_at }) => (

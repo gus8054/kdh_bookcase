@@ -1,8 +1,8 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
-import { Form } from "react-router";
+import { useEffect, useState } from "react";
+import { Form, useMatch } from "react-router";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -58,9 +58,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchBar() {
   const [value, setValue] = useState({ q: "" });
+  const isMatch = !!useMatch({ path: "/search" });
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    if (!isMatch) setValue({ q: "" });
+  }, [isMatch]);
   return (
     <Search sx={{ flex: 1 }}>
       <SearchIconWrapper>

@@ -19,21 +19,13 @@ const BookDetailPage = () => {
   const book = useLoaderData();
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          my: "2rem",
-        }}>
-        <Typography sx={{ fontSize: "1rem", fontWeight: "bold" }}>
-          도서 상세 정보
-        </Typography>
-        <Link to={`/users/${user.id}/books/${book.id}/edit`}>
-          <Button>요약하러 GO</Button>
-        </Link>
-      </Box>
-      <Card sx={{ my: "2rem" }}>
+      <Card sx={{ position: "relative" }}>
+        <Box
+          component={Link}
+          to={`/users/${user.id}/books/${book.id}/edit`}
+          sx={{ position: "absolute", top: "1rem", right: "1rem" }}>
+          <Button variant="contained">필기하러 가기</Button>
+        </Box>
         <Box sx={{ mx: "auto" }}>
           <CardMedia
             component="img"

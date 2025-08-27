@@ -61,12 +61,3 @@ export const reissueToken = async () => {
 export const signUpWithOAuth = async (token, nickname) => {
   await authAPI.post("/register/oauth", { token, nickname });
 };
-
-// access 토큰 유효성 확인
-// export const verifyAccessToken = async () => {
-//   await authAPI.get("/token", {
-//     headers: {
-//       Authorization: `Bearer ${useAuthStore.getState().accessToken}`,
-//     },
-//   });
-// };

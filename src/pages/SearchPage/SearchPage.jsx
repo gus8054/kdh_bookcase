@@ -1,12 +1,17 @@
-import { Alert, Grid, Typography } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import SearchBookCard from "./SearchBookCard/SearchBookCard";
 import { useLoaderData } from "react-router";
 
 const SearchPage = () => {
   const books = useLoaderData();
-
   let content;
-  if (books.length == 0)
+  if (!books)
+    content = content = (
+      <Alert variant="outlined" severity="info">
+        검색어를 입력해주세요.
+      </Alert>
+    );
+  else if (books.length == 0)
     content = (
       <Alert variant="outlined" severity="info">
         찾으시는 결과가 없습니다.
@@ -14,7 +19,7 @@ const SearchPage = () => {
     );
   else
     content = (
-      <Grid container spacing={8} sx={{ my: "2rem" }}>
+      <Grid container spacing={8}>
         {books.map((book) => (
           <Grid size={{ xs: 12 }} key={book.id}>
             <SearchBookCard book={book} />
@@ -22,13 +27,6 @@ const SearchPage = () => {
         ))}
       </Grid>
     );
-  return (
-    <>
-      <Typography sx={{ fontSize: "1rem", fontWeight: "bold", my: "2rem" }}>
-        검색 결과
-      </Typography>
-      {content}
-    </>
-  );
+  return content;
 };
 export default SearchPage;

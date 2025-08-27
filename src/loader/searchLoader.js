@@ -18,14 +18,15 @@ const searchLoader = async ({ request }) => {
   const url = new URL(request.url);
   const searchParams = url.searchParams;
   const keyword = searchParams.get("q");
-  if (!keyword) return [];
+  if (!keyword) return null;
   try {
     const { data } = await googleSearchAPI.get("", {
       params: {
         q: `${keyword} intitle:${keyword}`,
       },
     });
-    const books = data.items.map((item) => ({
+    if (data.totalItems === 0) return [];
+    const books = data?.items?.map((item) => ({
       id: item?.id,
       title: item?.volumeInfo?.title || "데이터 없음",
       authors: item?.volumeInfo?.authors || ["데이터 없음"],
