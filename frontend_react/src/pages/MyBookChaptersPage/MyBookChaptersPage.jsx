@@ -80,17 +80,6 @@ const MyBookChaptersPage = () => {
   const navigate = useNavigate();
   return (
     <>
-      {/* <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          my: "2rem",
-        }}>
-        <Typography sx={{ fontSize: "1rem", fontWeight: "bold" }}>
-          챕터별 요약
-        </Typography>
-      </Box> */}
       <Paper variant="outlined" sx={{ p: "1rem" }}>
         <Stack
           sx={{ justifyContent: "space-between", alignItems: "center" }}

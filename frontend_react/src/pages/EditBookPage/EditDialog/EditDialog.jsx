@@ -21,6 +21,7 @@ import MarkdownRender from "../../../components/MarkdownRender/MarkdownRender";
 import CancelDialog from "./CancelDialog/CancelDialog";
 import { getSummary, setSummary } from "../../../apis";
 import Loading from "../../../components/Loading/Loading";
+import MDFontSizeBtns from "../../../components/MDFontSizeBtn/MDFontSizeBtn";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -188,11 +189,17 @@ function hello() {
 
 ✂️ 수평선
 ---`;
+
   return (
     <Dialog
       fullScreen
       open={open}
-      onClose={handleClose}
+      onClose={(event, reason) => {
+        if (reason === "backdropClick" || reason === "escapeKeyDown") {
+          return; // 닫기 무시
+        }
+        handleClose();
+      }}
       slots={{
         transition: Transition,
       }}
@@ -230,6 +237,9 @@ function hello() {
             저장
           </Button>
         </Toolbar>
+        <MDFontSizeBtns
+          sx={{ position: "absolute", top: "5rem", right: "1rem" }}
+        />
       </AppBar>
       <Box
         sx={{
@@ -273,10 +283,8 @@ function hello() {
             display: { xs: "none", lg: "block" },
             flex: 1,
             overflow: "auto",
-            fontSize: "1rem",
             padding: "1rem",
           }}>
-          {" "}
           <MarkdownRender>{watch("markdown")}</MarkdownRender>
         </Box>
       </Box>

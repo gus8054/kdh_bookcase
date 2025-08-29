@@ -9,6 +9,7 @@ import { getChapter } from "../../../apis";
 import { useParams } from "react-router";
 import Loading from "../../../components/Loading/Loading";
 import MarkdownRender from "../../../components/MarkdownRender/MarkdownRender";
+import MDFontSizeBtns from "../../../components/MDFontSizeBtn/MDFontSizeBtn";
 
 const MarkdownDialog = ({ dialogContents, dialogOpen, handleDialogClose }) => {
   const [content, setContent] = useState(null);
@@ -29,7 +30,12 @@ const MarkdownDialog = ({ dialogContents, dialogOpen, handleDialogClose }) => {
   return (
     <Dialog
       open={dialogOpen}
-      onClose={handleDialogClose}
+      onClose={(event, reason) => {
+        if (reason === "backdropClick" || reason === "escapeKeyDown") {
+          return; // 닫기 무시
+        }
+        handleDialogClose();
+      }}
       scroll="paper"
       fullScreen
       aria-labelledby="scroll-dialog-title"
@@ -45,6 +51,7 @@ const MarkdownDialog = ({ dialogContents, dialogOpen, handleDialogClose }) => {
         )}
       </DialogContent>
       <DialogActions>
+        <MDFontSizeBtns />
         <Button onClick={handleDialogClose}>확인</Button>
       </DialogActions>
     </Dialog>

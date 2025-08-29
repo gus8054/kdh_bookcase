@@ -31,7 +31,7 @@ const MyPage = () => {
       <Button
         variant="contained"
         onClick={handleOpen}
-        sx={{ position: "absolute", right: 0, top: 0, zIndex: 9999 }}>
+        sx={{ position: "absolute", right: 0, top: 0 }}>
         회원 탈퇴
       </Button>
       <Dialog
